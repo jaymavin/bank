@@ -39,7 +39,36 @@ void read_accounts() {
 
 void update_accounts() {
 
+    FILE *fp;
+
+    fp = fopen("record.txt", "r");
+
+    if (fp == NULL) {
+        printf("Error opening file.\n");
+        exit(1);
+    }
+
+    int line = 0;
+    int line_view;
+
+    while (!feof(fp) && !ferror(fp)) {
+        if (fgets(g_accounts[line], MAX_LEN, fp) != NULL) {
+            line++;
+        }
+    }
+    fclose(fp);
+    
+    printf("Which line would you like to view?\n");
+    scanf("%d", &line_view);
+
+    // view a line based on line number entered
+    for (int i = 0; i <= line; i++) {
+        if (i == line_view) {
+            printf("%s", g_accounts[line_view - 1]);
+        }
+    }
 }
+    
 
 void delete_accounts() {
 
@@ -255,6 +284,8 @@ void menu() {
         case 6: delete_account();
         break;
         case 7: close();
+        break;
+        case 8: update_accounts();
         break;
         default:
             printf("Error. Please select a valid operation.\n");
