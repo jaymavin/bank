@@ -1,2 +1,2 @@
 # bank
-Simple bank management system project in C
+Simple bank project in C
